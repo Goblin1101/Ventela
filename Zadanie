@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Вариации_на_тему
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool[] number_used = new bool[8];
+
+            int index;
+            int next_index;
+            int predict;
+
+
+            for (int i = 0; i < 2; i++)
+            {
+    FirstCycle:
+
+                Console.WriteLine($"Введите {(i*4)+1}-e число:");
+
+                index = Int32.Parse(Console.ReadLine());
+
+
+
+                if (number_used[index])
+                {
+                    Console.WriteLine("Этот номер уже был");
+                    goto FirstCycle;
+                }
+
+
+                number_used[index] = true;
+
+
+                if (index % 2 == 0) predict = index + 1;
+                else predict = index - 1;
+
+
+
+                for (int j = 2; j < 5; j++)
+                {
+        SecondCycle:
+
+                    Console.WriteLine($"Введите {(i*4)+j}-e число:") ;
+
+                    next_index = Int32.Parse(Console.ReadLine());
+
+
+                    if (number_used[next_index])
+                    {
+                        Console.WriteLine("Этот номер уже был");
+                        goto SecondCycle;
+                    }
+
+
+
+                    if (next_index == predict && j == 2)
+                    {
+                        number_used[next_index] = true;
+
+                        continue;
+                    }
+                    if (next_index != predict && j == 2)
+                    {
+                        Console.WriteLine("Порядок нарушен!");
+                        goto SecondCycle;
+                    }
+
+
+                        if ( index < 4)
+                    {
+                        
+                        if (next_index < 4 && next_index >= 0 && !number_used[next_index] &&
+                            (next_index == 3 - index) || (next_index == 3 - predict))
+                        {
+                            number_used[next_index] = true;
+
+                            continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Порядок нарушен!");
+                            goto SecondCycle;
+                        }
+                    }
+                    else
+                    {
+                        
+                        if (next_index < 8 && next_index >= 4 && !number_used[next_index] &&
+                            (next_index == 11 - index) || (next_index == 11 - predict))
+                        {
+                            number_used[next_index] = true;
+
+                            continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Порядок нарушен!");
+                            goto SecondCycle;
+                        }
+
+
+                    }
+
+
+                    
+                }
+                
+
+            }
+
+            Console.WriteLine("Конец работы");
+            Console.ReadKey();
+
+        }
+    }
+}
